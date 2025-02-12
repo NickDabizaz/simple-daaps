@@ -10,5 +10,10 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
       chainId: 11155111
     }
+  },
+  etherscan: {
+    apiKey: {
+      sepolia: process.env.ETHERSCAN_API_KEY
+    }
   }
 };
