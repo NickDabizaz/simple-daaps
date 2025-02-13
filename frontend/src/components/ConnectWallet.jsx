@@ -1,22 +1,9 @@
-// src/components/ConnectWallet.jsx
-import React from "react"
+import React from "react";
 
 export default function ConnectWallet({ account, onClickConnect }) {
-  // Komponen ini menampilkan tombol "Connect Wallet"
-  // atau menampilkan alamat jika sudah terkoneksi
   return (
-    <div style={{ marginBottom: "1rem" }}>
-      {account ? (
-        <p>
-          {/* Menampilkan alamat wallet jika sudah connect */}
-          Wallet Connected: <b>{account}</b>
-        </p>
-      ) : (
-        <button onClick={onClickConnect}>
-          {/* Tombol untuk memicu connect */}
-          Connect Wallet
-        </button>
-      )}
+    <div className="mt-4">
+      {account ? <p>Wallet Connected: <b>{account}</b></p> : <button onClick={onClickConnect} className="px-4 py-2 bg-blue-500 text-white rounded">Connect Wallet</button>}
     </div>
-  )
+  );
 }
