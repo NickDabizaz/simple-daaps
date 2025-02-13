@@ -37,9 +37,8 @@ function App() {
       const _contract = new ethers.Contract(CONTRACT_ADDRESS, MyTokenArtifact.abi, _signer);
       setContract(_contract);
 
-      const signMsg = "Signing into MyToken DApp!";
-      await _signer.signMessage(signMsg);
-      setStatus("Wallet connected & signed in successfully.");
+      await _signer.signMessage("Signing into MyToken DApp!");
+      setStatus("Wallet connected successfully.");
     } catch (err) {
       setStatus("Failed to connect wallet: " + err.message);
     }
@@ -109,19 +108,50 @@ function App() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">MyToken DApp</h1>
-      {!account ? <ConnectWallet account={account} onClickConnect={connectWallet} /> : <button className="mt-3 px-4 py-2 bg-red-500 text-white rounded" onClick={disconnectWallet}>Disconnect Wallet</button>}
-      {status && <p className="mt-2 bg-gray-200 p-2 rounded">Status: {status}</p>}
+    <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif", textAlign: "center" }}>
+      <h1 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "20px" }}>MyToken DApp</h1>
+
+      <div style={{ display: "flex", justifyContent: "center", gap: "15px", marginBottom: "20px" }}>
+        {!account ? (
+          <ConnectWallet account={account} onClickConnect={connectWallet} />
+        ) : (
+          <button
+            onClick={disconnectWallet}
+            style={{
+              padding: "10px 15px",
+              background: "#ff4d4d",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "background 0.3s ease",
+            }}
+            onMouseOver={(e) => (e.target.style.background = "#cc0000")}
+            onMouseOut={(e) => (e.target.style.background = "#ff4d4d")}
+          >
+            Disconnect Wallet
+          </button>
+        )}
+      </div>
+
+      {status && (
+        <div style={{ background: "#f8d7da", color: "#721c24", padding: "10px", borderRadius: "5px", maxWidth: "400px", margin: "auto", marginBottom: "15px" }}>
+          {status}
+        </div>
+      )}
+
       {account && (
-        <div className="mt-4">
+        <div style={{ marginTop: "1rem", fontSize: "18px" }}>
           <p><b>ETH Balance:</b> {ethBalance}</p>
           <p><b>Token Balance (MYT):</b> {tokenBalance}</p>
         </div>
       )}
-      {contract && <TransferForm contract={contract} fetchBalance={fetchBalance} setStatus={setStatus} />}
-      {contract && isOwner && <MintForm contract={contract} account={account} fetchBalance={fetchBalance} setStatus={setStatus} />}
-      {contract && <BurnForm contract={contract} fetchBalance={fetchBalance} setStatus={setStatus} />}
+
+      <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", marginTop: "20px" }}>
+        {contract && <TransferForm contract={contract} fetchBalance={fetchBalance} setStatus={setStatus} />}
+        {contract && isOwner && <MintForm contract={contract} account={account} fetchBalance={fetchBalance} setStatus={setStatus} />}
+        {contract && <BurnForm contract={contract} fetchBalance={fetchBalance} setStatus={setStatus} />}
+      </div>
     </div>
   );
 }

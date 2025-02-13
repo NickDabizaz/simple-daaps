@@ -10,10 +10,10 @@ export default function TransferForm({ contract, fetchBalance, setStatus }) {
     if (!contract) return setStatus("Error: Contract is not defined");
 
     try {
-      setStatus("Sending transfer transaction...");
+      setStatus("Processing transfer...");
       const tx = await contract.transfer(to, ethers.utils.parseUnits(amount, 18));
       await tx.wait();
-      setStatus(`Transfer success! Tx hash: ${tx.hash}`);
+      setStatus(`Transfer successful! Tx hash: ${tx.hash}`);
       await fetchBalance();
     } catch (err) {
       setStatus(`Transfer failed: ${err.message}`);
@@ -21,34 +21,32 @@ export default function TransferForm({ contract, fetchBalance, setStatus }) {
   }
 
   return (
-    <form onSubmit={handleTransfer} className="mt-4">
-      <h3 className="text-lg font-semibold">Transfer Token</h3>
+    <form onSubmit={handleTransfer} style={{ padding: "20px", border: "1px solid #ddd", borderRadius: "10px", maxWidth: "400px", margin: "auto" }}>
+      <h3 style={{ textAlign: "center", marginBottom: "15px" }}>Transfer Tokens</h3>
 
-      <div className="mt-2">
-        <label className="block">Recipient Address:</label>
-        <input
-          type="text"
-          placeholder="0x..."
-          value={to}
-          onChange={(e) => setTo(e.target.value)}
-          required
-          className="border p-2 rounded w-full"
-        />
-      </div>
+      <label>Recipient Address:</label>
+      <input
+        type="text"
+        placeholder="0x..."
+        value={to}
+        onChange={(e) => setTo(e.target.value)}
+        required
+        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #ddd" }}
+      />
 
-      <div className="mt-2">
-        <label className="block">Amount:</label>
-        <input
-          type="number"
-          placeholder="0"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-          className="border p-2 rounded w-full"
-        />
-      </div>
+      <label>Amount:</label>
+      <input
+        type="number"
+        placeholder="0"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        required
+        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #ddd" }}
+      />
 
-      <button type="submit" className="mt-3 px-4 py-2 bg-blue-500 text-white rounded">
+      <button type="submit" style={{ width: "100%", padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}
+        onMouseOver={(e) => (e.target.style.backgroundColor = "#0056b3")}
+        onMouseOut={(e) => (e.target.style.backgroundColor = "#007bff")}>
         Transfer
       </button>
     </form>

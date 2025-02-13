@@ -20,11 +20,18 @@ export default function BurnForm({ contract, fetchBalance, setStatus }) {
   }
 
   return (
-    <form onSubmit={handleBurn} style={{ marginTop: "20px", padding: "20px", border: "1px solid #ccc", borderRadius: "8px", maxWidth: "400px", margin: "auto" }}>
-      <h3 style={{ marginBottom: "10px" }}>Burn Tokens</h3>
+    <form onSubmit={handleBurn} style={{ padding: "20px", border: "1px solid #ddd", borderRadius: "10px", maxWidth: "400px", margin: "auto" }}>
+      <h3 style={{ textAlign: "center", marginBottom: "15px" }}>Burn Tokens</h3>
 
-      <input type="number" placeholder="Amount to Burn" value={burnAmount} onChange={(e) => setBurnAmount(e.target.value)} required
-        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
+      <label>Amount to Burn:</label>
+      <input
+        type="number"
+        placeholder="0"
+        value={burnAmount}
+        onChange={(e) => setBurnAmount(e.target.value)}
+        required
+        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #ddd" }}
+      />
 
       <button type="submit" style={{ width: "100%", padding: "10px", backgroundColor: "#dc3545", color: "white", border: "none", borderRadius: "5px", cursor: "pointer" }}
         onMouseOver={(e) => (e.target.style.backgroundColor = "#c82333")}
